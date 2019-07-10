@@ -34,7 +34,6 @@ $(document).on('turbolinks:load', function(){
     .done(function(data){
       var html = buildHTML(data);
       $('.messages').append(html)
-      // $('.textbox').val('')
       $("#new_message")[0].reset();
       $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
       $(".form__submit").attr("disabled", false)
