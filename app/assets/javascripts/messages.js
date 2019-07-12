@@ -48,9 +48,9 @@ $(document).on('turbolinks:load', function(){
   
   setInterval(function () {
     if (window.location.href.match(/\/groups\/\d+\/messages/)){
-    var last_message_id = $('.message').last().data("id");
-    var last_message_name = $('.message:last').data("message-name");
-    var href = "api/messages"
+      var last_message_id = $('.message').last().data("id");
+      var last_message_name = $('.message:last').data("message-name");
+      var href = "api/messages"
     $.ajax({
       url: href,
       type: 'get',
