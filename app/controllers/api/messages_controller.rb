@@ -1,7 +1,8 @@
 class Api::MessagesController < ApplicationController
 
   def index
-    @messages = Group.find(params[:group_id]).messages.where("id > ?", params[:last_id])
+    @group = Group.find(params[:group_id])
+    @messages =messages.where("id > ?", params[:last_id])
   end
 
 end
