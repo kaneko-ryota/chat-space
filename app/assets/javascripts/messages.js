@@ -62,10 +62,8 @@ $(document).on('turbolinks:load', function(){
       messages.forEach(function (message) {
         insertHTML = buildHTML(message);
         $('.messages').append(insertHTML);
-      })
-      if (last_message_name !== undefined){
         $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
-      }
+      })
     })
     .fail(function () {
       alert('自動更新に失敗しました');

@@ -20,6 +20,9 @@ set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
 
+# secrets.yml用のシンボリックリンクを追加
+set :linked_files, %w{ config/secrets.yml }
+
 # デプロイ処理が終わった後、Unicornを再起動するための記述
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
@@ -40,6 +43,7 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 end
 
+
 set :default_env, {
   rbenv_root: "/usr/local/rbenv",
   path: "/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH",
@@ -47,7 +51,6 @@ set :default_env, {
   AWS_SECRET_ACCESS_KEY: ENV["AWS_SECRET_ACCESS_KEY"]
 }
 
-set :linked_files, %w{ config/secrets.yml }
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
