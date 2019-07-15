@@ -1,9 +1,9 @@
-= form_for @group do |f|
-  - if @group.errors.any?
+= form_for group do |f|
+  - if group.errors.any?
     .chat-group-form__errors
-      %h2= "#{@group.errors.full_messages.count}件のエラーが発生しました。"
+      %h2= "#{group.errors.full_messages.count}件のエラーが発生しました。"
       %ul
-        - @group.errors.full_messages.each do |message|
+        - group.errors.full_messages.each do |message|
           %li= message
   .chat-group-form__field
     .chat-group-form__field--left
@@ -18,19 +18,26 @@
       .chat-group-form__search.clearfix
         %input#user-search-field.chat-group-form__input{placeholder: "追加したいユーザー名を入力してください", type: "text"}/
         #user-search-result
-    .chat-group-form__field.clearfix
-      .chat-group-form__field--left
-        =f.label :name, value: "チャットメンバー", class: "chat_group-form__label"
-      .chat-group-form__field--right
-        #chat-group-users
+  .chat-group-form__field.clearfix
+    .chat-group-form__field--left
+      =f.label :name, value: "チャットメンバー", class: "chat-group-form__label"
+
+    .chat-group-form__field--right
+      #chat-group-users
+        - @group.users.each do |user|
           .chat-group-user.clearfix
             #chat-group-user-22.chat-group-user.clearfix
-              %input{name: "group[user_ids][]", type: "hidden", value: current_user.id}/
+              %input{name: "group[user_ids][]", type: "hidden", value: user.id}
             %p.chat-group-user__name 
-            = current_user.name
-    .chat-group-form__field.clearfix
-      .chat-group-form__field--left
-      .chat-group-form__field--right
-        = f.submit class: 'chat-group-form__action-btn'
+            = user.name
+            -if user.id == current_user.id
+              %span
+            - else 
+              %span.user-search-remove.chat-group-user__btn.chat-group-user__btn--remove.js-remove-btn 削除
+
+  .chat-group-form__field.clearfix
+    .chat-group-form__field--left
+    .chat-group-form__field--right
+      = f.submit class: 'chat-group-form__action-btn'
 
 
